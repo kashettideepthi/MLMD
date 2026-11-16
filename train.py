@@ -1,0 +1,104 @@
+import pandas as pd
+import joblib
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split,GridsearchCv
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+from sklearn.metrics import(
+  f1_score,
+  accuracy_score,
+  classification_report,
+  confusion_matrix
+)
+data = load_breast_cancer()
+X = pd.DataFrame(
+  data.data,
+  columns=data.feature_names
+)
+Y = pd.Series(data.target,name="target")
+print("Dataset shape:",X.shape)
+print("\nFirst 5 rows:")
+print(X.head())
+print("\nTarget values:")
+print(Y.value_counts())
+X_train,X_test,Y_train,Y_test=train_test_split(
+  X,
+  Y,
+  test_size=0.20,
+  random_state=42,
+  stratify=Y
+)
+print("\nTraining samples:",X_train.shape[0])
+print("Testing samples:",X_test.shape[0])
+models = {
+  "Logistic regression":LogisticRegression(
+    max_iter=5000
+  ),
+  "KNN":KNeighborsClassifier(),
+  "Decision Tree ":Decision TreeClassifier(
+    random_state=42
+  ),
+  "SVM":SVC()
+}
+param_grids = {
+  "Logistic Regression":{
+    "model__C":[0.1,1,10],
+    "model__solver":["liblinear"]
+  },
+  "KNN":{
+    "model__n_neighbors":[3,5,7,9],
+    "model__weights":["uniform","distance"]
+  },
+  "Decision tree":{
+    "model__max_depth":[None,3,5,10],
+    "model__min_samples_split":[2,5,10]
+  },
+  "Random Forest":{
+    "model__n__estimators":[100,200],
+    'model__max_depth":[None,5,10],
+    "model__min_samples_split":[2,5]
+  },
+  "SVM":{
+    "model__C":[0.1,1,10],
+    "model__kernel":["linear","rbf"],
+    "model__gamma":["scale","auto"]
+  }
+}
+results = []
+best_models = {}
+for model_name,model in models.item():
+  print("\n"+"="*60)
+  print("Running:",model_name)
+  print("="*60)
+  pipeline = Pipeline([
+    ("scaler",Standardscaier()),
+    ("model",model0
+     ])
+  grid_search = GridSearchCV(
+    estimator=pipeline,
+    param_grid=param_grids[model_name],
+    scoring="f1",
+    cv=5,
+    n_jobs=-1
+  )
+  grid_search.fit(X_train,Y_train)
+  best_models[model_name] = grid_search.best_estimator_
+  results.append({
+    "Model":model_name,
+    "Best F1 Score":grid-search.best_score_,
+    "Best Parameters":grid_search.best_params_
+  })
+  print("Best F1 Score:",
+        round(grid_search.best_score_,4))
+  print("Best Paramters:',
+      grid_search.best_params_)
+  results_df = pd.DataFrame(results)
+
+                     
+  
+  
