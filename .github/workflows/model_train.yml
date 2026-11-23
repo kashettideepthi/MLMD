@@ -9,12 +9,12 @@ jobs :
     runs-on : ubuntu-latest
     steps :
      - name : Checkout Repository Code
-       uses : actions/checkout@4
+       uses : actions/checkout@v4
      - name : Check Repository Files
        run : |
         echo "Current directory:"
         pwd
-        echo "files in repository root:"
+        echo "Files in repository root:"
         Is -Ia
         echo "Searching for test_model.py:"
         find . -name "test_model.py"
