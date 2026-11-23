@@ -63,7 +63,7 @@ param_grids = {
   },
   "Random Forest":{
     "model__n__estimators":[100,200],
-    'model__max_depth":[None,5,10],
+    "model__max_depth":[None,5,10],
     "model__min_samples_split":[2,5]
   },
   "SVM":{
