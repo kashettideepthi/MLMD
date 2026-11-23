@@ -79,7 +79,7 @@ for model_name,model in models.items():
   print("Running:",model_name)
   print("="*60)
   pipeline = Pipeline([
-    ("scaler",Standardscaier()),
+    ("scaler",Standardscaler()),
     ("model",model)
      ])
   grid_search = GridSearchCV(
