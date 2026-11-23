@@ -43,6 +43,9 @@ models = {
   "Decision Tree ":Decision TreeClassifier(
     random_state=42
   ),
+  "Random Forest":RandomForestClassifier(
+    random_state=42
+  ),
   "SVM":SVC()
 }
 param_grids = {
@@ -90,7 +93,7 @@ for model_name,model in models.item():
   best_models[model_name] = grid_search.best_estimator_
   results.append({
     "Model":model_name,
-    "Best F1 Score":grid-search.best_score_,
+    "Best F1 Score":grid_search.best_score_,
     "Best Parameters":grid_search.best_params_
   })
   print("Best F1 Score:",
