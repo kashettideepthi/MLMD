@@ -1,7 +1,7 @@
 import pandas as pd
 import joblib
 from sklearn.datasets import load_breast_cancer
-from sklearn.model_selection import train_test_split,GridsearchCv
+from sklearn.model_selection import train_test_split,GridSearchCv
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
