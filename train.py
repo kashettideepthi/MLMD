@@ -40,7 +40,7 @@ models = {
     max_iter=5000
   ),
   "KNN":KNeighborsClassifier(),
-  "Decision Tree ":Decision TreeClassifier(
+  "Decision Tree": DecisionTreeClassifier(
     random_state=42
   ),
   "Random Forest":RandomForestClassifier(
@@ -80,7 +80,7 @@ for model_name,model in models.item():
   print("="*60)
   pipeline = Pipeline([
     ("scaler",Standardscaier()),
-    ("model",model0
+    ("model",model)
      ])
   grid_search = GridSearchCV(
     estimator=pipeline,
@@ -98,7 +98,7 @@ for model_name,model in models.item():
   })
   print("Best F1 Score:",
         round(grid_search.best_score_,4))
-  print("Best Paramters:',
+  print("Best Paramters:",
       grid_search.best_params_)
   results_df = pd.DataFrame(results)
   results_df = results_df.sort_values(
