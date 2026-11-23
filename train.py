@@ -98,6 +98,44 @@ for model_name,model in models.item():
   print("Best Paramters:',
       grid_search.best_params_)
   results_df = pd.DataFrame(results)
+  results_df = results_df.sort_values(
+    by="Best F1 Score",
+    ascending=False
+  )
+  print("\n"+"="*60)
+  print("MODEL COMPARISON")
+  print("="*60)
+  print(
+    results_df[
+     ["Model","Best F1 Score"]
+    ].to_string(index=False)
+  )
+  best_model_name = results_df.iloc[0]["Model"]
+  best_model = best_models[best_model_name]
+  best_cv_f1_ = results_df.iloc[0]["Best F1 Score"]
+  print("\nBest model based on CV F1-score:")
+  print(best_model_name)
+  print("\nBest CV F1-score:")
+  print(round(best_cv_f1,4))
+  y_pred = best_model.predict(X_test)
+  print("\n"+"="*60)
+  print("FINAL MODEL EVALUATION")
+  print("="*60)
+  print("Accuracy:",accuracy_score(Y_test,Y_pred))
+  print("F1 Score:",f1_score(Y_test,Y_pred))
+  print("\nClassification Report:")
+  print(
+    classification_report(
+      Y_test,
+      Y_pred,
+      target_names=data.target_names
+    )
+  )
+  print("\nConfusion Matrix:")
+  print(confusion_matrix(Y_test,Y_pred))
+  joblib.dump(best_model,"best_model.joblib")
+  print("\nBest model saved successfully!")
+  print("Model:",best_model_name)
 
                      
   
