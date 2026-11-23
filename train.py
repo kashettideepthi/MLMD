@@ -74,7 +74,7 @@ param_grids = {
 }
 results = []
 best_models = {}
-for model_name,model in models.item():
+for model_name,model in models.items():
   print("\n"+"="*60)
   print("Running:",model_name)
   print("="*60)
